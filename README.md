@@ -30,15 +30,17 @@ postgresql versions which can cause various issues/bugs which are hard to find
 * Make sure you start from clean slate - `make db.drop`
 * Setup the database - `make db.setup`
 * Generate the schema models - `make generate`
-* Open `./schema/read_messages.go` and find `FindReadMessage`.
+* Postgresql version issue - Open `./schema/read_messages.go` and find `FindReadMessage`.
     Arguments of this function should be `(exec boil.Executor, userID string, messageID string)`
+* Golang map issue - Check for changes in `sqlboiler-postgresql-<version>.sum` file
 
 ### Test with postgresql-9.6
 * Make sure you start from clean slate - `make db.drop`
 * Setup the database - `make db.setup`
 * Generate the schema models - `make generate`
-* Open `./schema/read_messages.go` and find `FindReadMessage`.
+* Postgresql version issue - Open `./schema/read_messages.go` and find `FindReadMessage`.
     Arguments of this function should be `(exec boil.Executor, messageID string, userID string)`
+* Golang map issue - Check for changes in `sqlboiler-postgresql-<version>.sum` file
 
 ### Why this happens
 1. Different postgresql engines can export tables' columns in different order but sqlboiler actually counts
