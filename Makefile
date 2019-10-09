@@ -4,7 +4,7 @@ export DATABASE_USER      ?= ${USER}
 export DATABASE_NAME      ?= sqlboiler-test
 export DATABASE_SSLMODE   ?= disable
 export DATABASE_FILES     ?= ./schema
-export SCHEMA_FINGERPRINT := ./schema-postgresql-$(shell psql --version | grep -o '[0-9]*\.[0-9]').sum
+export SCHEMA_FINGERPRINT := ./schema.sum
 
 GO_GET_MODULE = env GO111MODULE=on go get
 
