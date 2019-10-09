@@ -6,6 +6,12 @@ export DATABASE_SSLMODE   ?= disable
 export DATABASE_FILES     ?= ./schema
 export SCHEMA_FINGERPRINT := ./schema-postgresql-$(shell psql --version | grep -o '[0-9]*\.[0-9]').sum
 
+GO_GET_MODULE = env GO111MODULE=on go get
+
+deps:
+	@$(GO_GET_MODULE) github.com/volatiletech/sqlboiler@v3.0.0
+	@$(GO_GET_MODULE) github.com/volatiletech/sqlboiler/drivers/sqlboiler-psql@v3.0.0
+
 db.setup:
 	@createdb -h ${DATABASE_HOST} -p ${DATABASE_PORT} -U ${DATABASE_USER} ${DATABASE_NAME}
 	@psql -h ${DATABASE_HOST} -p ${DATABASE_PORT} -U ${DATABASE_USER} ${DATABASE_NAME} < schema.sql
