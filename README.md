@@ -9,11 +9,6 @@ postgresql versions which can cause various issues/bugs which are hard to find
 
 ## Version affected
 * `SQLBoiler 3.0.0`
-* `SQLBoiler 3.1.0`
-* `SQLBoiler 3.2.0`
-* `SQLBoiler 3.3.0`
-* `SQLBoiler 3.4.0`
-* `SQLBoiler 3.5.0`
 
 ## Environment setup
 
@@ -30,17 +25,17 @@ postgresql versions which can cause various issues/bugs which are hard to find
 * Make sure you start from clean slate - `make db.drop`
 * Setup the database - `make db.setup`
 * Generate the schema models - `make generate`
-* Postgresql version issue - Open `./schema/read_messages.go` and find `FindReadMessage`.
-    Arguments of this function should be `(exec boil.Executor, userID string, messageID string)`
-* Golang map issue - Check for changes in `sqlboiler-postgresql-<version>.sum` file
+* Postgresql version issue - Open `./schema/received_messages.go` and find `FindReceivedMessage`.
+    Arguments of this function should be `FindReceivedMessage(exec boil.Executor, attendeeID string, messageID string)`
+* Save `sqlboiler.sum` file somewhere else for later comparison
 
 ### Test with postgresql-9.6
 * Make sure you start from clean slate - `make db.drop`
 * Setup the database - `make db.setup`
 * Generate the schema models - `make generate`
-* Postgresql version issue - Open `./schema/read_messages.go` and find `FindReadMessage`.
-    Arguments of this function should be `(exec boil.Executor, messageID string, userID string)`
-* Golang map issue - Check for changes in `sqlboiler-postgresql-<version>.sum` file
+* Postgresql version issue - Open `./schema/read_messages.go` and find `FindReceivedMessage`.
+    Arguments of this function should be `FindReceivedMessage(exec boil.Executor, messageID string, attendeeID string)`
+* Now compare current `sqlboiler.sum` file with the one from the test with postgresql-11.5
 
 ### Why this happens
 1. Different postgresql engines can export tables' columns in different order but sqlboiler actually counts
