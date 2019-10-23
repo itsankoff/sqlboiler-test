@@ -9,8 +9,8 @@ export SCHEMA_FINGERPRINT := ./schema.sum
 GO_GET_MODULE = env GO111MODULE=on go get
 
 deps:
-	@$(GO_GET_MODULE) github.com/volatiletech/sqlboiler@v3.0.0
-	@$(GO_GET_MODULE) github.com/volatiletech/sqlboiler/drivers/sqlboiler-psql@v3.0.0
+	@$(GO_GET_MODULE) github.com/volatiletech/sqlboiler@v3.6.0
+	@$(GO_GET_MODULE) github.com/volatiletech/sqlboiler/drivers/sqlboiler-psql@v3.6.0
 
 db.setup:
 	@createdb -h ${DATABASE_HOST} -p ${DATABASE_PORT} -U ${DATABASE_USER} ${DATABASE_NAME}
@@ -33,5 +33,5 @@ generate:
 		PSQL_DBNAME=${DATABASE_NAME} \
 		PSQL_PASS=${DATABASE_PASSWORD} \
 		PSQL_SSLMODE=${DATABASE_SSLMODE} \
-	sqlboiler --no-hooks --no-context --pkgname schema --output ./schema psql)
+	sqlboiler -d --no-hooks --no-context --pkgname schema --output ./schema psql)
 	@ls -d ${DATABASE_FILES}/* | sort | xargs -n 1 shasum -a 256 > ${SCHEMA_FINGERPRINT}
