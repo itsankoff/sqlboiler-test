@@ -8,15 +8,15 @@ postgresql versions which can cause various issues/bugs which are hard to find
     which results in non-deterministic code generation.
 
 ## Version affected
-* `SQLBoiler 3.0.0`
+* `SQLBoiler 3.6.0`
 
 ## Environment setup
 
 ### Requirements
 * `make`
-* `sqlboiler 3.0.0`
+* `sqlboiler 3.6.0`
 * `postgresql-11.5`
-* `postgresql-9.6`
+* `postgresql-9.5`
 * `go 1.12.+`
 
 ## Test
@@ -29,13 +29,14 @@ postgresql versions which can cause various issues/bugs which are hard to find
     Arguments of this function should be `FindReceivedMessage(exec boil.Executor, attendeeID string, messageID string)`
 * Save `sqlboiler.sum` file somewhere else for later comparison
 
-### Test with postgresql-9.6
+### Test with postgresql-9.5
 * Make sure you start from clean slate - `make db.drop`
 * Setup the database - `make db.setup`
 * Generate the schema models - `make generate`
 * Postgresql version issue - Open `./schema/read_messages.go` and find `FindReceivedMessage`.
     Arguments of this function should be `FindReceivedMessage(exec boil.Executor, messageID string, attendeeID string)`
 * Now compare current `sqlboiler.sum` file with the one from the test with postgresql-11.5
+* You can also check `received_messages-9.5.go` in the root directory which is generated with `postgresql-9.5` and you can compare it with the `postgresql-11.5` generated file.
 
 ### Why this happens
 1. Different postgresql engines can export tables' columns in different order but sqlboiler actually counts
